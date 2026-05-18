@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse all available homes for sale across Melbourne, St. Lucie Village, South Hutchinson Island, and more. 8 properties currently listed by William Miller of Bills FP Realty Co">
+    <title>Florida Property Search | Bills FP Realty Co</title>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async></script>
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-3" href="index.html" title="Bills FP Realty Co">
+                    <img src="images/logo.png" alt="Bills FP Realty Co logo" />
+                    <div>
+                        <span style="font-size:22px;font-weight:700;color:#009431;line-height:1.2;">Bills FP Realty Co</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteMainNav"
+                    aria-controls="siteMainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="siteMainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navBuy" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Buy</a>
+                            <ul class="dropdown-menu" aria-labelledby="navBuy">
+                                <li><a class="dropdown-item" href="index.html#featured-properties">Featured Properties</a></li>
+                                <li><a class="dropdown-item active" href="search.html">Search Properties</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navNb" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Neighborhoods</a>
+                            <ul class="dropdown-menu" aria-labelledby="navNb" style="max-height: 70vh; overflow-y: auto;">
+
+                                <li><a class="dropdown-item fw-semibold" href="neighborhoods/test-index.html">Test pages index</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/areas-georgetown.html">Areas: Georgetown</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/brookline-village.html">Brookline Village</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/canyon-creek-hoa.html">Canyon Creek HOA</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/cary-nc-55plus.html">Cary, NC 55+</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/cb-clayton-mo-st-louis.html">CB: Clayton, MO</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/coming-soon-build.html">Coming Soon Build</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/community-15.html">Community #15</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/community-id-8421.html">Community ID 8421</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/find-homes.html">Find Homes</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/homes-in-sacramento-ca.html">Homes in Sacramento, CA</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/lake-bluff-il-condos.html">Lake Bluff, IL Condos</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/local-market-arizona-tucson-foothills.html">Realtor: Tucson Foothills</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/luxury-homes-for-sale-naples-fl-port-royal.html">Toll: Port Royal, Naples</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/melbourne-fl.html">Melbourne, FL</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/n-tx-houston-the-heights.html">Trulia: The Heights, Houston</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/neighborhood-9942-co-denver-platt-park.html">Redfin: Platt Park, Denver</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/neighborhood-guides-nyc-tribeca.html">Compass: Tribeca, NYC</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/new-homes-az-phoenix-norterra.html">Lennar: Norterra, Phoenix</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/nh-32.html">NH-32</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/our-favorite-neighborhoods.html">Our Favorite Neighborhoods</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/places-to-live-n-coral-gables-village-fl.html">Niche: Coral Gables Village</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/scottsdale-az-85255.html">Scottsdale, AZ 85255</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/south-hutchinson-island-fl.html">South Hutchinson Island, FL</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/st-lucie-village-fl.html">St. Lucie Village, FL</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/the-quarter.html">The Quarter</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/the-village-at-bishops-gate.html">The Village at Bishop's Gate</a></li>
+
+                                <li><a class="dropdown-item" href="neighborhoods/walk-score-91-arts-district-la.html">Walk Score 91: Arts District</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="nav-contact d-flex flex-wrap align-items-center gap-3 ms-lg-auto mt-3 mt-lg-0">
+                        <div class="contact-item">
+                            <i class='bx bx-phone'></i>
+                            <div>
+                                <span class="label d-block">Phone</span>
+                                <span class="value d-block">678-404-2660</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class='bx bx-envelope'></i>
+                            <div>
+                                <span class="label d-block">Email</span>
+                                <span class="value d-block">bill@dreamneighborhood.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <section class="section page-breadcrumb mb-4">
+            <div class="container">
+                <h2>Search Properties</h2>
+                <p>Call William Miller at 678-404-2660 for private showings.</p>
+            </div>
+        </section>
+
+        <div class="container pb-5">
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="properties/172-due-west-st-dallas-ga.html" class="text-decoration-none text-reset d-block h-100">
+                        <div class="property-item h-100 d-flex flex-column">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80" height="250" alt="172 Due West St, Dallas, GA">
+                            </div>
+                            <div class="property-details flex-grow-1 d-flex flex-column">
+                                <span class="info-label">For Sale</span>
+                                <h3 class="title">172 Due West St, Dallas, GA</h3>
+                                <div class="location"><i class="bx bx-map"></i> Dallas, GA</div>
+                                <ul><li>Featured</li><li>Neighborhood explorer</li><li>West of Atlanta</li></ul>
+                                <p class="mt-auto mb-0 text-main-color small fw-semibold">View listing</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="properties/5-harbour-isle-dr-e-fort-pierce-fl.html" class="text-decoration-none text-reset d-block h-100">
+                        <div class="property-item h-100 d-flex flex-column">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" height="250" alt="5 Harbour Isle Dr E, Fort Pierce, FL">
+                            </div>
+                            <div class="property-details flex-grow-1 d-flex flex-column">
+                                <span class="info-label">For Sale</span>
+                                <h3 class="title">5 Harbour Isle Dr E, Fort Pierce, FL</h3>
+                                <div class="location"><i class="bx bx-map"></i> Fort Pierce, FL</div>
+                                <ul><li>3 Bed</li><li>2 Bath</li><li>2100 Sq Ft</li></ul>
+                                <p class="mt-auto mb-0 text-main-color small fw-semibold">View listing</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="properties/3309-n-indian-river-dr-st-lucie-village-fl.html" class="text-decoration-none text-reset d-block h-100">
+                        <div class="property-item h-100 d-flex flex-column">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" height="250" alt="3309 N Indian River Drive, St Lucie Village, FL">
+                            </div>
+                            <div class="property-details flex-grow-1 d-flex flex-column">
+                                <span class="info-label">For Sale</span>
+                                <h3 class="title">3309 N Indian River Drive, St Lucie Village, FL</h3>
+                                <div class="location"><i class="bx bx-map"></i> St Lucie Village, FL</div>
+                                <ul><li>4 Bed</li><li>3 Bath</li><li>3200 Sq Ft</li></ul>
+                                <p class="mt-auto mb-0 text-main-color small fw-semibold">View listing</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="properties/6165-isla-st-melbourne-fl.html" class="text-decoration-none text-reset d-block h-100">
+                        <div class="property-item h-100 d-flex flex-column">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=80" height="250" alt="6165 Isla St, Melbourne, FL">
+                            </div>
+                            <div class="property-details flex-grow-1 d-flex flex-column">
+                                <span class="info-label">For Sale</span>
+                                <h3 class="title">6165 Isla St, Melbourne, FL</h3>
+                                <div class="location"><i class="bx bx-map"></i> Melbourne, FL</div>
+                                <ul><li>4 Bed</li><li>3 Bath</li><li>2750 Sq Ft</li></ul>
+                                <p class="mt-auto mb-0 text-main-color small fw-semibold">View listing</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
