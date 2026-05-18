@@ -966,3 +966,15 @@ a.page-link {
     border-radius: 100%;
     z-index: 999;
 }
+
+/* Dream Neighborhood listing widget embed */
+.neighborhood-iframe {
+    height: 720px;
+}
+
+@media (min-width: 768px) {
+    .neighborhood-iframe {
+        height: 750px;
+    }
+}
+
