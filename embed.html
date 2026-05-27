@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How to embed Dream Neighborhood inline maps on your real estate website without layout issues.">
+    <title>Embed Guide | Dream Neighborhood | Wdmtaj Realty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .embed-guide pre {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+        }
+        .embed-guide pre code {
+            color: #212529;
+            font-size: 0.875rem;
+        }
+        .embed-guide .alert-warning {
+            border-left: 4px solid #ffc107;
+        }
+        .embed-guide .checklist-table td:last-child {
+            width: 4rem;
+            text-align: center;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="index.html" title="Wdmtaj Realty">
+                <img src="images/logo.png" alt="Wdmtaj Realty logo" />
+                <div>
+                    <span style="font-size:22px;font-weight:700;color:#009431;line-height:1.2;">Wdmtaj Realty</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteMainNav"
+                aria-controls="siteMainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="siteMainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="embed.html">Embed Guide</a></li>
+                    <li class="nav-item"><a class="nav-link" href="neighborhoods/test-index.html">Test Pages</a></li>
+                </ul>
+                <div class="nav-contact d-flex flex-wrap align-items-center gap-3 ms-lg-auto mt-3 mt-lg-0">
+                    <div class="contact-item">
+                        <i class='bx bx-envelope'></i>
+                        <div>
+                            <span class="label d-block">Email</span>
+                            <span class="value d-block">bill@dreamneighborhood.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 embed-guide">
+        <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Embed Guide</h1>
+        <p class="lead">Instructions for adding the inline neighborhood map to listing or neighborhood pages on your website.</p>
+
+        <div class="alert alert-warning mt-4">
+            <strong>Most important rule:</strong> Put the embed in its own full-width section — not inside a content column or sidebar layout.
+        </div>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">The embed snippet</h2>
+        <p>Add this once per page, where the map should appear:</p>
+        <pre><code>&lt;div id="dn-explorer"&gt;&lt;/div&gt;
+&lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;</code></pre>
+        <p class="text-muted small">For staging/testing, use <code>https://staging.dreamneighborhood.com/explorer/inline.js</code> instead.</p>
+        <p>The script auto-detects the property or neighborhood address from the page, the same way the popup SDK does.</p>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">What to avoid</h2>
+        <p>Do <strong>not</strong> place the snippet inside Bootstrap columns, sidebars, cards, fixed-width wrappers, or any parent with <code>overflow: hidden</code>.</p>
+        <pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-lg-8"&gt;
+      &lt;h1&gt;Neighborhood Name&lt;/h1&gt;
+      &lt;div id="dn-explorer"&gt;&lt;/div&gt;  &lt;!-- constrained — do not do this --&gt;
+      &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
+    &lt;/div&gt;
+    &lt;div class="col-lg-4"&gt;Sidebar&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Recommended layout (Bootstrap)</h2>
+        <pre><code>&lt;div class="container pt-5"&gt;
+  &lt;h1&gt;Georgetown&lt;/h1&gt;
+  &lt;p class="lead"&gt;Neighborhood description...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="container-fluid px-0"&gt;
+  &lt;div id="dn-explorer"&gt;&lt;/div&gt;
+  &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;div class="container pb-5"&gt;
+  &lt;p&gt;More neighborhood details...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Pages with a sidebar</h2>
+        <p>Keep the sidebar with the page intro. Place the explorer in a separate full-width block below that row.</p>
+        <pre><code>&lt;div class="container pt-5"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-lg-8"&gt;
+      &lt;h1&gt;Agent Name&lt;/h1&gt;
+      &lt;p class="lead"&gt;Bio...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="col-lg-4"&gt;Contact card&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="container-fluid px-0"&gt;
+  &lt;div id="dn-explorer"&gt;&lt;/div&gt;
+  &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;div class="container pb-5"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-lg-8"&gt;
+      &lt;!-- remaining content --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Optional CSS</h2>
+        <p>After the HTML structure is correct, this helps the iframe fill the section:</p>
+        <pre><code>#dn-explorer,
+#dn-explorer iframe {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}</code></pre>
+        <p class="text-muted">CSS alone cannot fix a snippet placed inside a narrow column. Fix the HTML layout first.</p>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Do not use CSS breakout hacks</h2>
+        <p>Avoid <code>width: 100vw; margin-left: -50vw;</code> tricks. They fail inside Bootstrap rows, flexbox, grid, and overflow-hidden parents.</p>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Pre-launch checklist</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered checklist-table">
+                <tbody>
+                    <tr><td>Snippet is not inside <code>.col-*</code> or a sidebar column</td><td>☐</td></tr>
+                    <tr><td>Snippet is in its own full-width block</td><td>☐</td></tr>
+                    <tr><td>Intro and body content use normal containers above/below</td><td>☐</td></tr>
+                    <tr><td>No <code>overflow: hidden</code> on parents wrapping the explorer</td><td>☐</td></tr>
+                    <tr><td>Only one <code>#dn-explorer</code> per page</td><td>☐</td></tr>
+                    <tr><td>Address is present on the page for auto-detection</td><td>☐</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Working examples on this site</h2>
+        <ul>
+            <li><a href="neighborhoods/agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a> — sidebar layout</li>
+            <li><a href="neighborhoods/areas-georgetown.html">Areas: Georgetown</a> — single-column layout</li>
+            <li><a href="neighborhoods/community-15.html">Community #15</a> — map + sidebar layout</li>
+        </ul>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Support</h2>
+        <p>Questions? Email <a href="mailto:bill@dreamneighborhood.com">bill@dreamneighborhood.com</a> or call <a href="tel:6784042660">678-404-2660</a>.</p>
+        <p class="text-muted small">Markdown version: <a href="https://github.com/motormouthvis/wdmtaj-realty/blob/main/EMBED.md">EMBED.md on GitHub</a></p>
+    </div>
+
+    <div class="copy-right">
+        <div class="container">
+            <p class="text-center mb-0">All rights reserved &copy; 2026 Wdmtaj Realty</p>
+        </div>
+    </div>
+
+    <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
