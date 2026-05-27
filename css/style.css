@@ -967,19 +967,13 @@ a.page-link {
     z-index: 999;
 }
 
-.dn-explorer-fullwidth {
-    width: 100vw;
-    max-width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-bottom: 1.5rem;
+.dn-explorer-section {
+    width: 100%;
 }
 
-.dn-explorer-fullwidth #dn-explorer,
-.dn-explorer-fullwidth iframe {
+.dn-explorer-section #dn-explorer,
+.dn-explorer-section iframe {
     width: 100%;
+    max-width: 100%;
     display: block;
 }
