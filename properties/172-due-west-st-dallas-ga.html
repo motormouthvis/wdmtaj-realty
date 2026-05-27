@@ -124,7 +124,7 @@
                 <h1 class="display-5 fw-bold">172 Due West St, Dallas, GA</h1>
                 <p class="lead text-muted">3 bed &middot; 2 bath &middot; 1,943 sq ft &middot; Built 1992</p>
 
-                <div id="listingPhotoCarousel" class="carousel slide my-4 rounded overflow-hidden shadow" data-bs-ride="carousel" data-bs-interval="false">
+                <div id="listingPhotoCarousel" class="carousel slide my-4 rounded overflow-hidden shadow" data-bs-ride="carousel" data-bs-interval="10000">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#listingPhotoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
                         <button type="button" data-bs-target="#listingPhotoCarousel" data-bs-slide-to="1" aria-label="Photo 2"></button>
@@ -257,5 +257,17 @@
     </style>
 
     <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var carouselEl = document.getElementById('listingPhotoCarousel');
+            if (carouselEl) {
+                bootstrap.Carousel.getOrCreateInstance(carouselEl, {
+                    interval: 10000,
+                    ride: 'carousel',
+                    wrap: true
+                });
+            }
+        });
+    </script>
 </body>
 </html>
