@@ -966,3 +966,20 @@ a.page-link {
     border-radius: 100%;
     z-index: 999;
 }
+
+.dn-explorer-fullwidth {
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 1.5rem;
+}
+
+.dn-explorer-fullwidth #dn-explorer,
+.dn-explorer-fullwidth iframe {
+    width: 100%;
+    display: block;
+}
