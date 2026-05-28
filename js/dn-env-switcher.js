@@ -360,12 +360,13 @@
 
     document.body.appendChild(container);
 
-    // Optional: show a stronger warning banner when on PRODUCTION
+    // Show a top bar indicating which environment is active.
+    // Production = red warning. Staging = blue info bar.
     if (env === 'production') {
-      var warning = document.createElement('div');
-      warning.id = 'dn-prod-warning';
-      warning.textContent = '⚠ PRODUCTION — Dream Neighborhood live endpoints';
-      Object.assign(warning.style, {
+      var prodBar = document.createElement('div');
+      prodBar.id = 'dn-prod-warning';
+      prodBar.textContent = '⚠ PRODUCTION — Dream Neighborhood live endpoints';
+      Object.assign(prodBar.style, {
         position: 'fixed',
         top: '0',
         left: '0',
@@ -380,9 +381,32 @@
         boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
         pointerEvents: 'none'
       });
-      document.body.appendChild(warning);
+      document.body.appendChild(prodBar);
 
-      // Push the switcher down a bit so it doesn't overlap the banner
+      // Push the switcher pill down so it doesn't overlap the bar
+      container.style.top = '28px';
+    } else if (env === 'staging') {
+      var stagingBar = document.createElement('div');
+      stagingBar.id = 'dn-staging-warning';
+      stagingBar.textContent = 'STAGING — Dream Neighborhood test endpoints';
+      Object.assign(stagingBar.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        zIndex: '2147483646',
+        background: '#0ea5e9',
+        color: 'white',
+        fontSize: '11px',
+        fontWeight: '600',
+        textAlign: 'center',
+        padding: '3px 8px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+        pointerEvents: 'none'
+      });
+      document.body.appendChild(stagingBar);
+
+      // Push the switcher pill down so it doesn't overlap the bar
       container.style.top = '28px';
     }
   }
