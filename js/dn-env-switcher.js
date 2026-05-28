@@ -117,20 +117,64 @@
     }
   }
 
+  // Handle inline (embedded) explorer visibility on this test site.
+  // When Production is selected, hide the inline explorers and show a clear
+  // message for devs, because the inline explorer has not been deployed to
+  // production yet (only the popup SDK is available on prod right now).
+  function handleProductionInlineExplorers() {
+    if (getCurrentEnv() !== 'production') {
+      return;
+    }
+
+    var sections = document.querySelectorAll('.dn-explorer-section');
+
+    sections.forEach(function (section) {
+      section.style.display = 'none';
+
+      // Insert a dev-oriented message (only once)
+      var parent = section.parentNode;
+      if (parent && !parent.querySelector('.dn-inline-prod-warning')) {
+        var msg = document.createElement('div');
+        msg.className = 'dn-inline-prod-warning';
+        msg.style.cssText = [
+          'margin: 16px 0',
+          'padding: 14px 16px',
+          'background: #fef3c7',
+          'border: 1px solid #f59e0b',
+          'color: #78350f',
+          'font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+          'font-size: 13px',
+          'line-height: 1.45'
+        ].join(';');
+
+        msg.innerHTML =
+          '<strong>[DEV / QA]</strong> Inline explorer is not yet deployed to Production.<br>' +
+          'Embedded maps currently only work on <strong>Staging</strong>. ' +
+          'The popup SDK (floating button) is available on both environments.';
+        parent.insertBefore(msg, section);
+      }
+    });
+  }
+
   // Run early patching as soon as this script executes (critical for head scripts)
   patchScriptTags();
 
   // Re-patch shortly after load to catch any scripts added during initial execution
-  setTimeout(patchScriptTags, 50);
+  setTimeout(function () {
+    patchScriptTags();
+    handleProductionInlineExplorers();
+  }, 60);
 
   // Also patch again after DOM is ready (catches late-added scripts/iframes in body)
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       patchScriptTags();
       patchIframes();
+      handleProductionInlineExplorers();
     });
   } else {
     patchIframes();
+    handleProductionInlineExplorers();
   }
 
   // Expose a small global API for advanced use / console debugging
