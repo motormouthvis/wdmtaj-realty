@@ -12,6 +12,10 @@
  *   Then load your normal SDK or inline scripts as usual (they will be
  *   automatically rewritten based on the current selection).
  * 
+ *   We aggressively replace the script tags (not just mutate src) to ensure
+ *   the browser actually fetches from the selected environment, even when
+ *   the original tags use "async".
+ *
  *   The switcher UI will appear in the top-right corner.
  */
 
@@ -61,19 +65,40 @@
       .replace(/https?:\/\/app\.dreamneighborhood\.com/gi, 'https://' + getTargetHostname());
   }
 
-  // Patch any <script> tags that are still in the DOM and haven't executed yet
-  // (must be called synchronously before those script tags are parsed/executed)
+  // Patch any <script> tags that are still in the DOM and haven't executed yet.
+  // We REMOVE the original tag and insert a fresh one with the correct src.
+  // This is much more reliable than mutating src on async scripts (browsers may
+  // have already started fetching the original URL).
   function patchScriptTags() {
-    var scripts = document.getElementsByTagName('script');
+    var scripts = Array.prototype.slice.call(document.getElementsByTagName('script'));
+    var rewritten = 0;
+
     for (var i = 0; i < scripts.length; i++) {
       var s = scripts[i];
       var src = s.getAttribute('src');
-      if (src && /dreamneighborhood\.com/i.test(src)) {
-        var newSrc = rewriteUrl(src);
-        if (newSrc !== src) {
-          s.setAttribute('src', newSrc);
-        }
+      if (!src || !/dreamneighborhood\.com/i.test(src)) continue;
+
+      var newSrc = rewriteUrl(src);
+      if (newSrc === src) continue;
+
+      // Create a fresh script element with the correct URL
+      var fresh = document.createElement('script');
+      fresh.src = newSrc;
+
+      // Preserve async attribute if it was present
+      if (s.hasAttribute('async')) {
+        fresh.async = true;
       }
+
+      // Replace the old node with the new one in the same position
+      if (s.parentNode) {
+        s.parentNode.replaceChild(fresh, s);
+        rewritten++;
+      }
+    }
+
+    if (rewritten > 0 && typeof console !== 'undefined') {
+      console.log('%c[DN Env] Rewrote ' + rewritten + ' Dream Neighborhood script(s) to ' + getTargetHostname(), 'color:#0ea5e9');
     }
   }
 
@@ -92,10 +117,13 @@
     }
   }
 
-  // Run early patching as soon as this script executes
+  // Run early patching as soon as this script executes (critical for head scripts)
   patchScriptTags();
 
-  // Also patch again after DOM is ready (catches late-added scripts/iframes)
+  // Re-patch shortly after load to catch any scripts added during initial execution
+  setTimeout(patchScriptTags, 50);
+
+  // Also patch again after DOM is ready (catches late-added scripts/iframes in body)
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       patchScriptTags();
