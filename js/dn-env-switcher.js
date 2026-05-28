@@ -90,6 +90,11 @@
         fresh.async = true;
       }
 
+      // If this is a production inline.js, attach error capture immediately
+      if (getCurrentEnv() === 'production' && newSrc.indexOf('inline.js') !== -1) {
+        attachInlineErrorHandler(fresh);
+      }
+
       // Replace the old node with the new one in the same position
       if (s.parentNode) {
         s.parentNode.replaceChild(fresh, s);
@@ -117,52 +122,85 @@
     }
   }
 
-  // Handle inline (embedded) explorer visibility on this test site.
-  // When Production is selected, hide the inline explorers and show a clear
-  // message for devs, because the inline explorer has not been deployed to
-  // production yet (only the popup SDK is available on prod right now).
-  function handleProductionInlineExplorers() {
-    if (getCurrentEnv() !== 'production') {
-      return;
-    }
+  // Capture and display the real error when a production inline.js fails to load.
+  // This gives devs the exact error from the website instead of a generic message.
+  function attachInlineErrorHandler(scriptEl) {
+    if (!scriptEl || scriptEl.dataset.dnErrorHooked) return;
+    scriptEl.dataset.dnErrorHooked = 'true';
 
-    var sections = document.querySelectorAll('.dn-explorer-section');
+    scriptEl.addEventListener('error', function (event) {
+      var section = scriptEl.closest('.dn-explorer-section') ||
+                    (scriptEl.parentNode && scriptEl.parentNode.querySelector('#dn-explorer'));
 
-    sections.forEach(function (section) {
-      section.style.display = 'none';
-
-      // Insert a dev-oriented message (only once)
-      var parent = section.parentNode;
-      if (parent && !parent.querySelector('.dn-inline-prod-warning')) {
-        var msg = document.createElement('div');
-        msg.className = 'dn-inline-prod-warning';
-        msg.style.cssText = [
-          'margin: 16px 0',
-          'padding: 14px 16px',
-          'background: #fef3c7',
-          'border: 1px solid #f59e0b',
-          'color: #78350f',
-          'font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-          'font-size: 13px',
-          'line-height: 1.45'
-        ].join(';');
-
-        msg.innerHTML =
-          '<strong>[DEV / QA]</strong> Inline explorer is not yet deployed to Production.<br>' +
-          'Embedded maps currently only work on <strong>Staging</strong>. ' +
-          'The popup SDK (floating button) is available on both environments.';
-        parent.insertBefore(msg, section);
+      if (section) {
+        section.style.display = 'none';
       }
-    });
+
+      var parent = section ? section.parentNode : scriptEl.parentNode;
+      if (!parent) return;
+
+      // Avoid showing multiple error boxes for the same failure
+      if (parent.querySelector('.dn-inline-prod-error')) return;
+
+      var errorBox = document.createElement('div');
+      errorBox.className = 'dn-inline-prod-error';
+      errorBox.style.cssText = [
+        'margin: 16px 0',
+        'padding: 14px 16px',
+        'background: #fef2f2',
+        'border: 1px solid #fca5a5',
+        'color: #7f1d1d',
+        'font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+        'font-size: 12.5px',
+        'line-height: 1.5',
+        'white-space: pre-wrap'
+      ].join(';');
+
+      var url = scriptEl.src || '(unknown)';
+      var errDetails = event.message || event.type || 'Script load failed (onerror)';
+      var time = new Date().toISOString();
+
+      errorBox.innerHTML =
+        '<strong>[DEV] Production inline explorer failed to load</strong>\n\n' +
+        'URL:     ' + url + '\n' +
+        'Error:   ' + errDetails + '\n' +
+        'Time:    ' + time + '\n\n' +
+        'This is the exact error received from the server.\n' +
+        'Expected until the inline explorer is deployed to production.';
+
+      parent.insertBefore(errorBox, section || scriptEl);
+    }, { once: true });
+  }
+
+  // Hook error handlers onto any production inline.js scripts we can find.
+  function hookProductionInlineErrors() {
+    if (getCurrentEnv() !== 'production') return;
+
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      var s = scripts[i];
+      var src = s.getAttribute('src') || '';
+      if (src.indexOf('inline.js') !== -1 && src.indexOf('dreamneighborhood.com') !== -1) {
+        attachInlineErrorHandler(s);
+      }
+    }
+  }
+
+  // Original static helper kept for backward compatibility but now delegates
+  // to real error capturing when in production.
+  function handleProductionInlineExplorers() {
+    hookProductionInlineErrors();
   }
 
   // Run early patching as soon as this script executes (critical for head scripts)
   patchScriptTags();
+  hookProductionInlineErrors();
 
   // Re-patch shortly after load to catch any scripts added during initial execution
   setTimeout(function () {
     patchScriptTags();
     handleProductionInlineExplorers();
+    hookProductionInlineErrors();
   }, 60);
 
   // Also patch again after DOM is ready (catches late-added scripts/iframes in body)
@@ -171,10 +209,12 @@
       patchScriptTags();
       patchIframes();
       handleProductionInlineExplorers();
+      hookProductionInlineErrors();
     });
   } else {
     patchIframes();
     handleProductionInlineExplorers();
+    hookProductionInlineErrors();
   }
 
   // Expose a small global API for advanced use / console debugging
