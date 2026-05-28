@@ -198,6 +198,33 @@ Working inline embed examples on this demo site:
 
 ---
 
+## Environment Switcher (Dev / QA Only)
+
+Because this site is used for internal testing, every page that includes `js/dn-env-switcher.js` early in the `<head>` gets a small floating pill in the top-right corner:
+
+- Click the pill to instantly toggle between **STAGING** and **PRODUCTION**.
+- The choice is saved in `localStorage` and persists across page reloads and navigation.
+- When **PRODUCTION** is active, a red banner appears at the very top as a strong visual reminder.
+- The switcher automatically rewrites:
+  - `sdk.js` and `inline.js` script sources
+  - Widget iframe URLs on property pages
+
+**To enable the switcher on a new test page:**
+
+```html
+<head>
+  <!-- Put this as early as possible, BEFORE any dreamneighborhood script tags -->
+  <script src="js/dn-env-switcher.js"></script>
+
+  <!-- Your normal DN scripts (staging URLs are fine — they get rewritten) -->
+  <script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async></script>
+</head>
+```
+
+The relative path to the script will vary depending on the folder depth (`../js/...` or `../../js/...`).
+
+---
+
 ## Support
 
 Questions? Contact **bill@dreamneighborhood.com** or call **678-404-2660**.

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="libs/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Dream Neighborhood env switcher (dev/QA only) -->
+    <script src="js/dn-env-switcher.js"></script>
     <style>
         .embed-guide pre {
             background: #f8f9fa;
@@ -68,6 +70,12 @@
     <div class="container py-5 embed-guide">
         <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Embed Guide</h1>
         <p class="lead">Instructions for adding the inline neighborhood map to listing or neighborhood pages on your website.</p>
+
+        <div class="alert alert-info mt-3">
+            <strong>Dev/QA only:</strong> This test site includes an environment switcher (top-right corner).
+            Click the pill to toggle between <strong>STAGING</strong> and <strong>PRODUCTION</strong> instantly.
+            The switcher rewrites all Dream Neighborhood script and iframe URLs on the fly.
+        </div>
 
         <div class="alert alert-warning mt-4">
             <strong>Most important rule:</strong> Put the embed in its own full-width section — not inside a content column or sidebar layout.
