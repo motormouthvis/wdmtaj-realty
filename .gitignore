@@ -2,3 +2,5 @@
 .update-navbar.ps1
 .check-eol.ps1
 .sync-navbar.ps1
+
+screenshots/
