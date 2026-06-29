@@ -17,9 +17,8 @@
         .difficulty-vhard { color: #7c0a02; font-weight: 800; }
         code.url { font-size: 12px; word-break: break-all; }
     </style>
-    <!-- Dream Neighborhood env switcher (dev/QA only) - must come before any DN scripts -->
-    <script src="../js/dn-env-switcher.js"></script>
-    <script src='https://staging.dreamneighborhood.com/explorer/sdk.js' async></script>
+    <!-- Dream Neighborhood Schools widget (floating popup bubble) -->
+    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -129,16 +128,98 @@
     </nav>
 
     <div class="container pt-5">
-        <h1 class="display-5 fw-bold mb-3">Popup Address-Detection Test Suite</h1>
-        <p class="lead">25 community / neighborhood pages built to stress every common way real estate sites embed (or hide) a location.</p>
+        <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Schools &mdash; Address-Detection Test Suite</h1>
+        <p class="lead">Test pages for the <strong>School Rating Explorer</strong> embeddable widget
+        (<code>https://www.dreamneighborhoodschools.com/embed.js</code>) and its address-scraping feature.</p>
+        <p>This page itself uses the <strong>popup</strong> embed &mdash; look for the floating
+        School Rating Explorer button in the lower corner. The pages below exercise the widget's
+        scraping logic across realistic and adversarial address layouts.</p>
+        <p class="small text-muted mb-0">Snippet: <code>&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code>
+        &nbsp;&bull;&nbsp; Inline: add <code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;</code> before the script.
+        See the <a href="../embed.html">Embed Guide</a>.</p>
     </div>
 
-    <div class="container-fluid px-0 dn-explorer-section">
-        <div id="dn-explorer"></div>
-        <script src="https://staging.dreamneighborhood.com/explorer/inline.js" async></script>
+    <div class="container pt-5">
+        <h2 class="h3 fw-bold mb-2">A. Isolated scraping-path pages</h2>
+        <p>Each page below exposes the address through <strong>exactly one</strong> source, so the
+        address the explorer resolves to confirms which scraping path fired. These use the
+        <strong>inline</strong> embed so the iframe (and its resolved <code>address=</code>) is visible
+        immediately without clicking.</p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Scraping path</th>
+                        <th>Page</th>
+                        <th>Where the address lives</th>
+                        <th>Expected resolved address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1 &mdash; <code>document.title</code></td>
+                        <td><a href="scrape-title-only.html">scrape-title-only.html</a></td>
+                        <td>Full address only in the <code>&lt;title&gt;</code> tag</td>
+                        <td>742 Evergreen Terrace, Springfield, IL 62704</td>
+                    </tr>
+                    <tr>
+                        <td>2 &mdash; JSON-LD <code>PostalAddress</code></td>
+                        <td><a href="scrape-jsonld-postaladdress.html">scrape-jsonld-postaladdress.html</a></td>
+                        <td>schema.org <code>SingleFamilyResidence</code> / <code>PostalAddress</code> JSON-LD</td>
+                        <td>1060 W Addison St, Chicago, IL 60613</td>
+                    </tr>
+                    <tr>
+                        <td>2 &mdash; Open Graph meta</td>
+                        <td><a href="scrape-og-meta.html">scrape-og-meta.html</a></td>
+                        <td><code>og:street-address</code> / <code>og:locality</code> / <code>og:region</code> / <code>og:postal-code</code></td>
+                        <td>350 Fifth Ave, New York, NY 10118</td>
+                    </tr>
+                    <tr>
+                        <td>2 &mdash; microdata</td>
+                        <td><a href="scrape-microdata.html">scrape-microdata.html</a></td>
+                        <td>Inline <code>itemprop</code> microdata (<code>streetAddress</code>&hellip;)</td>
+                        <td>233 S Wacker Dr, Chicago, IL 60606</td>
+                    </tr>
+                    <tr>
+                        <td>3 &mdash; visible body text</td>
+                        <td><a href="scrape-visible-text.html">scrape-visible-text.html</a></td>
+                        <td>Plain text in a paragraph; container sets <code>data-search-page-content="true"</code></td>
+                        <td>1 Infinite Loop, Cupertino, CA 95014</td>
+                    </tr>
+                    <tr>
+                        <td>4 &mdash; page footer</td>
+                        <td><a href="scrape-footer-only.html">scrape-footer-only.html</a></td>
+                        <td>Address only inside the <code>&lt;footer&gt;</code></td>
+                        <td>120 Ocean Blvd, Santa Monica, CA 90401</td>
+                    </tr>
+                    <tr>
+                        <td>5 &mdash; URL slug</td>
+                        <td><a href="scrape-url-slug-987-pine-st-boulder-co-80302.html">scrape-url-slug-987-pine-st-boulder-co-80302.html</a></td>
+                        <td>Address only in the file name / URL slug</td>
+                        <td>987 Pine St, Boulder, CO 80302</td>
+                    </tr>
+                    <tr>
+                        <td>6 &mdash; neighborhood/city (server geocode)</td>
+                        <td><a href="scrape-neighborhood-city-only.html">scrape-neighborhood-city-only.html</a></td>
+                        <td>Only a neighborhood + city + state, no street address</td>
+                        <td>Wicker Park, Chicago, IL (neighborhood-level)</td>
+                    </tr>
+                    <tr>
+                        <td>7&ndash;8 &mdash; host default / manual</td>
+                        <td><a href="scrape-no-address.html">scrape-no-address.html</a></td>
+                        <td>No address anywhere on the page</td>
+                        <td>Host default (none for this host) &rarr; manual entry in the explorer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="container pb-5">
+        <h2 class="h3 fw-bold mt-5 mb-2">B. Real-world address-layout matrix</h2>
+        <p>These 25 pages model how production real-estate platforms embed (or hide) a location.
+        They use the <strong>popup</strong> embed unless noted as an inline example, and stress the
+        same scraping order against messy, adversarial markup.</p>
         <div class="alert alert-info mt-4">
             <h6 class="alert-heading mb-2">How to read this matrix</h6>
             <ul class="mb-0 small">
