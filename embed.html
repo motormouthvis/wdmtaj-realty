@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="How to embed Dream Neighborhood inline maps on your real estate website without layout issues.">
-    <title>Embed Guide | Dream Neighborhood | Wdmtaj Realty</title>
+    <meta name="description" content="How to embed the Dream Neighborhood Schools 'School Rating Explorer' widget on your real estate website — popup and inline, with address auto-detection.">
+    <title>Embed Guide | Dream Neighborhood Schools | Wdmtaj Realty</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="libs/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Dream Neighborhood env switcher (dev/QA only) -->
-    <script src="js/dn-env-switcher.js"></script>
+    <!-- Dream Neighborhood Schools widget (floating popup bubble) -->
+    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
     <style>
         .embed-guide pre {
             background: #f8f9fa;
@@ -33,6 +33,7 @@
             text-align: center;
             font-size: 1.25rem;
         }
+        .embed-guide table code { white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -68,34 +69,101 @@
     </nav>
 
     <div class="container py-5 embed-guide">
-        <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Embed Guide</h1>
-        <p class="lead">Instructions for adding the inline neighborhood map to listing or neighborhood pages on your website.</p>
+        <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Schools — Embed Guide</h1>
+        <p class="lead">Add the <strong>School Rating Explorer</strong> widget to your listing or
+        neighborhood pages. It shows nearby school ratings scoped to the page's address, which it
+        scrapes automatically.</p>
 
         <div class="alert alert-info mt-3">
-            <strong>Dev/QA only:</strong> This test site includes an environment switcher (top-right corner).
-            Click the pill to toggle between <strong>STAGING</strong> and <strong>PRODUCTION</strong> instantly.
-            The switcher rewrites all Dream Neighborhood script and iframe URLs on the fly.
+            This guide page itself loads the <strong>popup</strong> embed — look for the floating
+            School Rating Explorer button in the corner.
         </div>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">The snippet</h2>
+
+        <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Popup (floating bubble) — site-wide</h3>
+        <p>Add this once, anywhere on the page (shared <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>):</p>
+        <pre><code>&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code></pre>
+
+        <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Inline (mounts into the page)</h3>
+        <p>Add a container <strong>before</strong> the script:</p>
+        <pre><code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
+&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code></pre>
+        <p class="text-muted small">The inline container is auto-detected via <code>#dream-schools-explorer</code>,
+        <code>.dream-schools-explorer</code>, or <code>[data-dream-schools-explorer]</code>.</p>
 
         <div class="alert alert-warning mt-4">
-            <strong>Most important rule:</strong> Put the embed in its own full-width section — not inside a content column or sidebar layout.
+            <strong>Popup vs inline:</strong> the SDK self-detects. If it finds an inline container
+            anywhere on the page it mounts <strong>inline</strong>; otherwise it shows the
+            <strong>popup</strong> bubble. A page is therefore either popup or inline — adding an
+            inline container turns off the floating bubble on that page. Use the popup site-wide and
+            the inline embed on the specific pages where you want the explorer rendered in the layout.
         </div>
 
-        <h2 class="h4 fw-bold mt-5 mb-3">The embed snippet</h2>
-        <p>Add this once per page, where the map should appear:</p>
-        <pre><code>&lt;div id="dn-explorer"&gt;&lt;/div&gt;
-&lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;</code></pre>
-        <p class="text-muted small">For staging/testing, use <code>https://staging.dreamneighborhood.com/explorer/inline.js</code> instead.</p>
-        <p>The script auto-detects the property or neighborhood address from the page, the same way the popup SDK does.</p>
+        <h2 class="h4 fw-bold mt-5 mb-3">How it works</h2>
+        <ol>
+            <li>Resolves per-host config from <code>GET /api/embed/config?host=…</code> (unregistered hosts get a permissive <code>enabled:true</code> default).</li>
+            <li>Best-effort scrapes the page address (order below).</li>
+            <li>Posts <code>{page_url, page_title, page_address}</code> to <code>POST /api/embed/scrape</code> (validate + server-side geocode → <code>{address, lat, lon}</code>).</li>
+            <li>Opens the explorer iframe at <code>/embed</code> scoped to that address.</li>
+        </ol>
+        <p class="text-muted small">All endpoints are on <code>https://www.dreamneighborhoodschools.com</code> (CORS / iframe enabled), so the widget works from any host over https.</p>
 
-        <h2 class="h4 fw-bold mt-5 mb-3">What to avoid</h2>
-        <p>Do <strong>not</strong> place the snippet inside Bootstrap columns, sidebars, cards, fixed-width wrappers, or any parent with <code>overflow: hidden</code>.</p>
+        <h2 class="h4 fw-bold mt-5 mb-3">Address scraping order</h2>
+        <ol>
+            <li><code>document.title</code> (e.g. <code>123 Main St, City, ST 12345</code>)</li>
+            <li>Structured data: JSON-LD <code>PostalAddress</code>, then <code>og:</code> address meta, then <code>itemprop</code> microdata</li>
+            <li>Visible body text — <strong>only</strong> when <code>data-search-page-content="true"</code></li>
+            <li>Page footer (<code>&lt;footer&gt;</code> / <code>[class*="footer"]</code>)</li>
+            <li>URL slug (e.g. <code>…/123-main-st-city-st-12345</code>)</li>
+            <li>Neighborhood / city from title or URL (resolved server-side)</li>
+            <li>The host's configured default address (set in the admin)</li>
+            <li>Manual entry inside the explorer</li>
+        </ol>
+        <p>Because <code>document.title</code> is checked first, the most reliable thing you can do is
+        put the full address in the page title. This demo isolates each path — see the
+        <a href="neighborhoods/test-index.html">test index</a>.</p>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Optional <code>data-*</code> overrides</h2>
+        <p>Set these on the <code>&lt;script&gt;</code> tag (popup) or the inline container.</p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead class="table-light"><tr><th>Attribute</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td><code>data-partner-id</code></td><td>Partner identifier</td></tr>
+                    <tr><td><code>data-widget-number</code></td><td>Which configured widget to load (default <code>1</code>)</td></tr>
+                    <tr><td><code>data-accent-color</code></td><td>Accent color, e.g. <code>#1fa55f</code></td></tr>
+                    <tr><td><code>data-position</code></td><td>Bubble side: <code>left</code> or <code>right</code> (popup)</td></tr>
+                    <tr><td><code>data-bottom-offset</code></td><td>Extra bottom offset in px (popup)</td></tr>
+                    <tr><td><code>data-tooltip-message</code></td><td>Bubble tooltip text; supports <code>{{address}}</code></td></tr>
+                    <tr><td><code>data-require-address</code></td><td><code>true</code> to hide the popup when no address resolves</td></tr>
+                    <tr><td><code>data-search-page-content</code></td><td><code>true</code> to allow scraping visible body text</td></tr>
+                    <tr><td><code>data-suppress-on-inline</code></td><td><code>true</code> to hide the popup when an inline embed is present</td></tr>
+                    <tr><td><code>data-min-height</code></td><td>Inline iframe min-height in px</td></tr>
+                    <tr><td><code>data-show-header</code></td><td><code>true</code> to show the explorer header inline</td></tr>
+                    <tr><td><code>data-address</code></td><td>Hard-code the address (skips scraping)</td></tr>
+                    <tr><td><code>data-lat</code> / <code>data-lng</code></td><td>Hard-code coordinates (skips geocoding)</td></tr>
+                    <tr><td><code>data-api-base</code></td><td>Override the API origin (advanced / testing)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-muted small">The Schools widget has only a <strong>production</strong> origin —
+        there is no staging/prod switcher. To point at a different backend for testing, set
+        <code>data-api-base</code>.</p>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Inline layout — most important rule</h2>
+        <div class="alert alert-warning">
+            <strong>Put the inline embed in its own full-width section</strong> — not inside a content
+            column or sidebar layout.
+        </div>
+        <p>Do <strong>not</strong> place the inline snippet inside Bootstrap columns, sidebars, cards,
+        fixed-width wrappers, or any parent with <code>overflow: hidden</code>.</p>
         <pre><code>&lt;div class="container"&gt;
   &lt;div class="row"&gt;
     &lt;div class="col-lg-8"&gt;
       &lt;h1&gt;Neighborhood Name&lt;/h1&gt;
-      &lt;div id="dn-explorer"&gt;&lt;/div&gt;  &lt;!-- constrained — do not do this --&gt;
-      &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
+      &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;  &lt;!-- constrained — do not do this --&gt;
+      &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
     &lt;/div&gt;
     &lt;div class="col-lg-4"&gt;Sidebar&lt;/div&gt;
   &lt;/div&gt;
@@ -108,8 +176,8 @@
 &lt;/div&gt;
 
 &lt;div class="container-fluid px-0"&gt;
-  &lt;div id="dn-explorer"&gt;&lt;/div&gt;
-  &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
+  &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
+  &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
 &lt;/div&gt;
 
 &lt;div class="container pb-5"&gt;
@@ -120,49 +188,34 @@
         <p>Keep the sidebar with the page intro. Place the explorer in a separate full-width block below that row.</p>
         <pre><code>&lt;div class="container pt-5"&gt;
   &lt;div class="row"&gt;
-    &lt;div class="col-lg-8"&gt;
-      &lt;h1&gt;Agent Name&lt;/h1&gt;
-      &lt;p class="lead"&gt;Bio...&lt;/p&gt;
-    &lt;/div&gt;
+    &lt;div class="col-lg-8"&gt;&lt;h1&gt;Agent Name&lt;/h1&gt;&lt;p class="lead"&gt;Bio...&lt;/p&gt;&lt;/div&gt;
     &lt;div class="col-lg-4"&gt;Contact card&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div class="container-fluid px-0"&gt;
-  &lt;div id="dn-explorer"&gt;&lt;/div&gt;
-  &lt;script src="https://app.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;div class="container pb-5"&gt;
-  &lt;div class="row"&gt;
-    &lt;div class="col-lg-8"&gt;
-      &lt;!-- remaining content --&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+  &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
+  &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
 &lt;/div&gt;</code></pre>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Optional CSS</h2>
-        <p>After the HTML structure is correct, this helps the iframe fill the section:</p>
-        <pre><code>#dn-explorer,
-#dn-explorer iframe {
+        <pre><code>#dream-schools-explorer,
+#dream-schools-explorer iframe {
   width: 100%;
   max-width: 100%;
   display: block;
 }</code></pre>
-        <p class="text-muted">CSS alone cannot fix a snippet placed inside a narrow column. Fix the HTML layout first.</p>
-
-        <h2 class="h4 fw-bold mt-5 mb-3">Do not use CSS breakout hacks</h2>
-        <p>Avoid <code>width: 100vw; margin-left: -50vw;</code> tricks. They fail inside Bootstrap rows, flexbox, grid, and overflow-hidden parents.</p>
+        <p class="text-muted">CSS alone cannot fix a snippet placed inside a narrow column, and avoid
+        <code>width: 100vw; margin-left: -50vw;</code> breakout hacks — fix the HTML layout first.</p>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Pre-launch checklist</h2>
         <div class="table-responsive">
             <table class="table table-bordered checklist-table">
                 <tbody>
-                    <tr><td>Snippet is not inside <code>.col-*</code> or a sidebar column</td><td>☐</td></tr>
-                    <tr><td>Snippet is in its own full-width block</td><td>☐</td></tr>
-                    <tr><td>Intro and body content use normal containers above/below</td><td>☐</td></tr>
+                    <tr><td>Inline snippet is not inside <code>.col-*</code> or a sidebar column</td><td>☐</td></tr>
+                    <tr><td>Inline snippet is in its own full-width block</td><td>☐</td></tr>
                     <tr><td>No <code>overflow: hidden</code> on parents wrapping the explorer</td><td>☐</td></tr>
-                    <tr><td>Only one <code>#dn-explorer</code> per page</td><td>☐</td></tr>
+                    <tr><td>Only one inline container per page</td><td>☐</td></tr>
                     <tr><td>Address is present on the page for auto-detection</td><td>☐</td></tr>
                 </tbody>
             </table>
@@ -170,10 +223,20 @@
 
         <h2 class="h4 fw-bold mt-5 mb-3">Working examples on this site</h2>
         <ul>
-            <li><a href="neighborhoods/agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a> — sidebar layout</li>
-            <li><a href="neighborhoods/areas-georgetown.html">Areas: Georgetown</a> — single-column layout</li>
-            <li><a href="neighborhoods/community-15.html">Community #15</a> — map + sidebar layout</li>
+            <li><a href="neighborhoods/areas-georgetown.html">Areas: Georgetown</a> — inline, single-column layout</li>
+            <li><a href="neighborhoods/agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a> — inline, sidebar layout</li>
+            <li><a href="neighborhoods/community-15.html">Community #15</a> — inline, map + sidebar layout</li>
+            <li><a href="neighborhoods/test-index.html">Test index</a> — isolated scraping-path pages + real-world matrix</li>
         </ul>
+
+        <h2 class="h4 fw-bold mt-5 mb-3">Deploying (Netlify)</h2>
+        <p>This static site auto-deploys via Netlify: pushes to <code>main</code> publish production
+        (<a href="https://wdmtaj-realty.netlify.app">wdmtaj-realty.netlify.app</a>), and every pull
+        request gets a Deploy Preview at <code>https://deploy-preview-&lt;n&gt;--wdmtaj-realty.netlify.app</code>.
+        The widget renders on any host, so a Deploy Preview URL is a fine live test host. If you
+        register a per-host default in the
+        <a href="https://app.dreamneighborhoodschools.com">Schools admin</a>, register the host you'll
+        actually test on.</p>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Support</h2>
         <p>Questions? Email <a href="mailto:bill@dreamneighborhood.com">bill@dreamneighborhood.com</a> or call <a href="tel:6784042660">678-404-2660</a>.</p>
