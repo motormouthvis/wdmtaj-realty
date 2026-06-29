@@ -26,9 +26,6 @@
       "amenities": ["Pool", "Trails", "Dog park", "Riverfront pavilion"]
     }
     </script>
-    <!-- Dream Neighborhood env switcher (dev/QA only) - must come before any DN scripts -->
-    <script src="../js/dn-env-switcher.js"></script>
-    <script src='https://staging.dreamneighborhood.com/explorer/sdk.js' async></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -146,9 +143,10 @@
         <p class="lead">A growing waterfront community with model homes by three regional builders.</p>
     </div>
 
-    <div class="container-fluid px-0 dn-explorer-section">
-        <div id="dn-explorer"></div>
-        <script src="https://staging.dreamneighborhood.com/explorer/inline.js" async></script>
+    <!-- Dream Neighborhood Schools widget (inline explorer) -->
+    <div class="container-fluid px-0 schools-explorer-section">
+        <div id="dream-schools-explorer"></div>
+        <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
     </div>
 
     <div class="container pb-5">

@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libs/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Dream Neighborhood env switcher (dev/QA only) - must come before any DN scripts -->
-    <script src="../js/dn-env-switcher.js"></script>
-    <script src='https://staging.dreamneighborhood.com/explorer/sdk.js' async></script>
+    <!-- Dream Neighborhood Schools widget (floating popup bubble) -->
+    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -208,9 +207,9 @@
                 </div>
                 <p class="small text-muted mb-0">32 photos &middot; Ranch on ~0.69 acre near the Cobb County line</p>
 
-                <h5 class="mt-4 mb-3">Listing &amp; neighborhood</h5>
-                <p class="text-muted">Interactive tools powered by Dream Neighborhood: tour details, local insights, and more.</p>
-                <p class="small mb-0"><a href="https://staging.dreamneighborhood.com/a/wdmtaj-realty/widget/?partner=22152&amp;widget_number=2" target="_blank" rel="noopener noreferrer">Open listing tools in a new tab</a> if the embed does not appear.</p>
+                <h5 class="mt-4 mb-3">Listing &amp; neighborhood schools</h5>
+                <p class="text-muted">School ratings for this address are available from the floating <strong>School Rating Explorer</strong> button in the corner of the page (powered by Dream Neighborhood Schools).</p>
+                <p class="small mb-0"><a href="https://www.dreamneighborhoodschools.com" target="_blank" rel="noopener noreferrer">Learn more about Dream Neighborhood Schools</a>.</p>
             </div>
 
             <div class="col-lg-4">
@@ -227,34 +226,11 @@
         </div>
     </div>
 
-    <section class="listing-embed-fullwidth">
-        <iframe
-            src="https://staging.dreamneighborhood.com/a/wdmtaj-realty/widget/?partner=66694&widget_number=2"
-            width="100%"
-            class="neighborhood-iframe"
-            style="border:0; color-scheme: light; outline: none;"
-        ></iframe>
-    </section>
-
     <style>
     .listing-carousel-photo {
         object-fit: cover;
         max-height: 480px;
         background: #f0f0f0;
-    }
-
-    .listing-embed-fullwidth {
-        width: 100%;
-    }
-
-    .neighborhood-iframe {
-        height: 720px; /* default for mobile */
-    }
-
-    @media (min-width: 768px) {
-        .neighborhood-iframe {
-            height: 750px; /* tablets and larger */
-        }
     }
     </style>
 

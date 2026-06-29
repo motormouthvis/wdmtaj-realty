@@ -967,29 +967,18 @@ a.page-link {
     z-index: 999;
 }
 
-.dn-explorer-section {
+/* ========================================
+   Dream Neighborhood Schools — inline explorer
+   Full-width block so the iframe is never squeezed
+   into a narrow column. See EMBED.md for layout rules.
+   ======================================== */
+.schools-explorer-section {
     width: 100%;
 }
 
-.dn-explorer-section #dn-explorer,
-.dn-explorer-section iframe {
+.schools-explorer-section #dream-schools-explorer,
+.schools-explorer-section iframe {
     width: 100%;
     max-width: 100%;
     display: block;
-}
-
-/* ========================================
-   Dream Neighborhood Env Switcher (dev/QA)
-   ======================================== */
-#dn-env-switcher {
-    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
-}
-
-#dn-env-switcher:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
-
-#dn-prod-warning {
-    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
 }
