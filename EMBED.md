@@ -220,6 +220,7 @@ After the HTML structure is correct, this helps the iframe fill the section:
 
 Working inline embed examples on this demo site:
 
+- [Schools](schools.html) — tall full-page explorer using the host default address
 - [Areas: Georgetown](neighborhoods/areas-georgetown.html) — single-column layout
 - [Agent: Jane Doe (Detroit)](neighborhoods/agent-jane-doe-detroit.html) — sidebar layout
 - [Community #15](neighborhoods/community-15.html) — map + sidebar layout
