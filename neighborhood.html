@@ -130,16 +130,16 @@
             <p class="text-muted mb-0">Neighborhood Explorer for this site &mdash; tall inline embed for exploring the area.</p>
         </div>
 
-        <!-- Neighborhood Explorer inline embed ONLY (no School Explorer script on this page). -->
+        <!-- Neighborhood Explorer INLINE embed ONLY (inline.js mounts into #dn-explorer; no popup sdk.js, no School embed). -->
         <div class="container-fluid px-0 schools-explorer-section schools-page-explorer neighborhood-page-explorer">
             <div id="dn-explorer"></div>
-            <script src="https://app.dreamneighborhood.com/explorer/sdk.js" async></script>
+            <script src="https://app.dreamneighborhood.com/explorer/inline.js" async></script>
         </div>
 
         <div class="container py-4">
             <p class="small text-muted mb-0">
-                Neighborhood Explorer only on this page. Inline container id is
-                <code>#dn-explorer</code> (detected by the Dream Neighborhood SDK).
+                Neighborhood Explorer inline only on this page
+                (<code>#dn-explorer</code> + <code>inline.js</code>).
             </p>
         </div>
 
