@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wdmtaj Realty - Local real estate expertise for Melbourne, St. Lucie Village, and South Hutchinson Island, FL. Featured waterfront homes and neighborhood insights from William Miller.">
-    <title>Wdmtaj Realty | Melbourne, St. Lucie Village, South Hutchinson Island</title>
+    <meta name="description" content="Explore the neighborhood with Dream Neighborhood. Inline Neighborhood Explorer for this site.">
+    <title>Neighborhood | Wdmtaj Realty</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="libs/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Dream Neighborhood Schools widget (floating popup bubble) -->
-    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 </head>
 <body>
     <div id="app">
@@ -32,7 +28,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="siteMainNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navBuy" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">Buy</a>
@@ -107,7 +103,7 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="schools.html">Schools</a></li>
-                        <li class="nav-item"><a class="nav-link" href="neighborhood.html">Neighborhood</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="neighborhood.html" aria-current="page">Neighborhood</a></li>
                     </ul>
                     <div class="nav-contact d-flex flex-wrap align-items-center gap-3 ms-lg-auto mt-3 mt-lg-0">
                         <div class="contact-item">
@@ -129,102 +125,29 @@
             </div>
         </nav>
 
-        <header class="header" style="background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2070&q=80') center/cover no-repeat; min-height: 620px; display: flex; align-items: center;">
-            <div class="container">
-                <div class="text-content text-white">
-                    <h6 class="text-uppercase tracking-widest opacity-90">Wdmtaj Realty</h6>
-                    <h1 class="display-3 fw-bold mb-3">Florida Homes With<br>Local Neighborhood Expertise</h1>
-                    <p class="lead mb-4" style="max-width: 520px;">Work with William Miller to find the right home in the right neighborhood in Melbourne, St. Lucie Village, and South Hutchinson Island.</p>
-                    <div class="d-flex gap-3">
-                        <a href="search.html" class="btn btn-light btn-lg px-5 py-3 fw-semibold">Search Properties</a>
-                        <a href="#featured-properties" class="btn btn-outline-light btn-lg px-5 py-3 fw-semibold">See Featured Homes</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <div class="container-fluid px-4 px-lg-5 pt-3 pb-2">
+            <h1 class="h2 fw-bold mb-1">Neighborhood</h1>
+            <p class="text-muted mb-0">Neighborhood Explorer for this site &mdash; tall inline embed for exploring the area.</p>
+        </div>
 
-        <section class="section featured-listing-area" id="featured-properties">
-            <div class="container">
-                <div class="text-center mb-6">
-                    <h6 class="section-title">Buy</h6>
-                    <h2 class="fw-bold">Featured Properties</h2>
-                </div>
+        <!-- Neighborhood Explorer inline embed ONLY (no School Explorer script on this page). -->
+        <div class="container-fluid px-0 schools-explorer-section schools-page-explorer neighborhood-page-explorer">
+            <div id="dn-explorer"></div>
+            <script src="https://app.dreamneighborhood.com/explorer/sdk.js" async></script>
+        </div>
 
-                <div class="row justify-content-center featured-listings-row">
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <a href="properties/172-due-west-st-dallas-ga.html" class="text-decoration-none text-reset">
-                            <div class="featured-list-card h-100">
-                                <div class="card-image">
-                                    <img src="properties/images/172-due-west/1.jpg" alt="172 Due West St, Dallas, GA">
-                                    <span>For Sale</span>
-                                </div>
-                                <div class="card-body p-4">
-                                    <span class="price">Contact for pricing</span>
-                                    <h6>172 Due West St, Dallas, GA</h6>
-                                    <p>Featured listing west of Atlanta with interactive neighborhood explorer.</p>
-                                    <small class="text-muted">Listed by William Miller</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <a href="properties/5-harbour-isle-dr-e-fort-pierce-fl.html" class="text-decoration-none text-reset">
-                            <div class="featured-list-card h-100">
-                                <div class="card-image">
-                                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="5 Harbour Isle Dr E, Fort Pierce, FL">
-                                    <span>For Sale</span>
-                                </div>
-                                <div class="card-body p-4">
-                                    <span class="price">$725,000</span>
-                                    <h6>5 Harbour Isle Dr E, Fort Pierce, FL</h6>
-                                    <p>Waterfront home with Intracoastal views and gated community amenities.</p>
-                                    <small class="text-muted">Listed by William Miller</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <a href="properties/3309-n-indian-river-dr-st-lucie-village-fl.html" class="text-decoration-none text-reset">
-                            <div class="featured-list-card h-100">
-                                <div class="card-image">
-                                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="3309 N Indian River Drive, St Lucie Village, FL">
-                                    <span>For Sale</span>
-                                </div>
-                                <div class="card-body p-4">
-                                    <span class="price">$1,250,000</span>
-                                    <h6>3309 N Indian River Drive, St Lucie Village, FL</h6>
-                                    <p>Riverfront retreat with spacious layout and panoramic water views.</p>
-                                    <small class="text-muted">Listed by William Miller</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <a href="properties/6165-isla-st-melbourne-fl.html" class="text-decoration-none text-reset">
-                            <div class="featured-list-card h-100">
-                                <div class="card-image">
-                                    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=80" alt="6165 Isla St, Melbourne, FL">
-                                    <span>For Sale</span>
-                                </div>
-                                <div class="card-body p-4">
-                                    <span class="price">$895,000</span>
-                                    <h6>6165 Isla St, Melbourne, FL</h6>
-                                    <p>Updated Melbourne home with open layout and private backyard.</p>
-                                    <small class="text-muted">Listed by William Miller</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="container py-4">
+            <p class="small text-muted mb-0">
+                Neighborhood Explorer only on this page. Inline container id is
+                <code>#dn-explorer</code> (detected by the Dream Neighborhood SDK).
+            </p>
+        </div>
 
         <div class="footer">
             <div class="container">
                 <div class="row align-items-start">
                     <div class="col-12 col-md-8">
                         <h6>Wdmtaj Realty</h6>
-                        <p>3309 N Indian River Drive, St Lucie Village</p>
                         <p>Phone: 678-404-2660</p>
                         <p>Email: bill@dreamneighborhood.com</p>
                         <p>Realtor: William Miller</p>
@@ -233,7 +156,6 @@
                         <h6>Quick Links</h6>
                         <ul class="nav flex-column page-list">
                             <li class="nav-item"><a href="search.html" class="nav-link">Search Properties</a></li>
-                            <li class="nav-item"><a href="neighborhoods/melbourne-fl.html" class="nav-link">Neighborhoods</a></li>
                             <li class="nav-item"><a href="schools.html" class="nav-link">Schools</a></li>
                             <li class="nav-item"><a href="neighborhood.html" class="nav-link">Neighborhood</a></li>
                             <li class="nav-item"><a href="embed.html" class="nav-link">Schools Widget Embed Guide</a></li>
