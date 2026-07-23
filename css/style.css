@@ -986,6 +986,10 @@ a.page-link {
 /* Dedicated Schools nav page — taller viewport so customers can scan the full list */
 .schools-page-explorer {
     min-height: calc(100vh - 110px);
+}
+
+/* Schools tab only — slightly inset from page edges (~12% narrower) */
+.schools-page-explorer:not(.neighborhood-page-explorer) {
     width: 88%;
     max-width: 88%;
     margin-left: auto;
