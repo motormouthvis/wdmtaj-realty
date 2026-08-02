@@ -136,18 +136,17 @@
         serves the School Rating Explorer or the Neighborhood Explorer depending on the site's
         subscription. The pages below exercise the widget's scraping logic across realistic and
         adversarial address layouts.</p>
-        <p class="small text-muted mb-0">Popup snippet: <code>&lt;script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async&gt;&lt;/script&gt;</code>
-        &nbsp;&bull;&nbsp; Inline schools: add <code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;</code> before
-        <code>&lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;</code>.
-        See the <a href="../embed.html">Embed Guide</a>.</p>
+        <p class="small text-muted mb-0">Every page in this suite carries that one tag and nothing
+        else. The inline embeds live only on the <a href="../schools.html">Schools</a> and
+        <a href="../neighborhood.html">Neighborhood</a> pages &mdash; see the
+        <a href="../embed.html">Embed Guide</a>.</p>
     </div>
 
     <div class="container pt-5">
         <h2 class="h3 fw-bold mb-2">A. Isolated scraping-path pages</h2>
         <p>Each page below exposes the address through <strong>exactly one</strong> source, so the
-        address the explorer resolves to confirms which scraping path fired. These use the
-        <strong>inline</strong> embed so the iframe (and its resolved <code>address=</code>) is visible
-        immediately without clicking.</p>
+        address the explorer resolves to confirms which scraping path fired. Open the popup on each
+        page to see the address it resolved to.</p>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead class="table-light">
@@ -186,7 +185,7 @@
                     <tr>
                         <td>3 &mdash; visible body text</td>
                         <td><a href="scrape-visible-text.html">scrape-visible-text.html</a></td>
-                        <td>Plain text in a paragraph; container sets <code>data-search-page-content="true"</code></td>
+                        <td>Plain text in a paragraph; needs <code>data-search-page-content="true"</code></td>
                         <td>1 Infinite Loop, Cupertino, CA 95014</td>
                     </tr>
                     <tr>
@@ -221,8 +220,8 @@
     <div class="container pb-5">
         <h2 class="h3 fw-bold mt-5 mb-2">B. Real-world address-layout matrix</h2>
         <p>These 25 pages model how production real-estate platforms embed (or hide) a location.
-        They use the <strong>popup</strong> embed unless noted as an inline example, and stress the
-        same scraping order against messy, adversarial markup.</p>
+        They use the <strong>popup</strong> embed and stress the same scraping order against messy,
+        adversarial markup.</p>
         <div class="alert alert-info mt-4">
             <h6 class="alert-heading mb-2">How to read this matrix</h6>
             <ul class="mb-0 small">
