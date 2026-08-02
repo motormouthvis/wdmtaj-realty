@@ -130,12 +130,15 @@
     <div class="container pt-5">
         <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Schools &mdash; Address-Detection Test Suite</h1>
         <p class="lead">Test pages for the <strong>School Rating Explorer</strong> embeddable widget
-        (<code>https://www.dreamneighborhoodschools.com/embed.js</code>) and its address-scraping feature.</p>
+        (<code>https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js</code>) and its address-scraping feature.</p>
         <p>This page itself uses the <strong>popup</strong> embed &mdash; look for the floating
-        School Rating Explorer button in the lower corner. The pages below exercise the widget's
-        scraping logic across realistic and adversarial address layouts.</p>
-        <p class="small text-muted mb-0">Snippet: <code>&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code>
-        &nbsp;&bull;&nbsp; Inline: add <code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;</code> before the script.
+        explorer button in the lower corner. It comes from the shared Dream Neighborhood tag, which
+        serves the School Rating Explorer or the Neighborhood Explorer depending on the site's
+        subscription. The pages below exercise the widget's scraping logic across realistic and
+        adversarial address layouts.</p>
+        <p class="small text-muted mb-0">Popup snippet: <code>&lt;script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async&gt;&lt;/script&gt;</code>
+        &nbsp;&bull;&nbsp; Inline schools: add <code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;</code> before
+        <code>&lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;</code>.
         See the <a href="../embed.html">Embed Guide</a>.</p>
     </div>
 
@@ -529,7 +532,6 @@
     </div>
 
     <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://app.dreamneighborhood.com/explorer/sdk.js" async></script>
-    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+    <script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async></script>
 </body>
 </html>

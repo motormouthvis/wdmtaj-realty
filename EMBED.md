@@ -13,21 +13,26 @@ address, which it scrapes automatically.
 ### Popup (floating bubble) — site-wide
 
 Add this once, anywhere on the page (the shared `<head>` or just before
-`</body>`). A floating **School Rating Explorer** button appears in the corner and
-opens a chrome-less explorer when clicked:
+`</body>`). A floating explorer button appears in the corner and opens a
+chrome-less explorer when clicked:
 
 ```html
-<script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+<script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async></script>
 ```
 
-### Inline (mounts into the page)
+This single tag is the whole popup install. It resolves the site's subscription
+and shows either the **Neighborhood Explorer** or the **School Rating
+Explorer** — when the site isn't entitled to the Neighborhood Explorer, the SDK
+loads the Schools widget itself, so there is no second popup snippet to paste.
+
+### Inline School Rating Explorer
 
 Add a container **before** the script. The explorer renders directly in that
 container instead of as a floating bubble:
 
 ```html
 <div id="dream-schools-explorer"></div>
-<script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+<script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async></script>
 ```
 
 The inline container is auto-detected via any of:
@@ -35,6 +40,15 @@ The inline container is auto-detected via any of:
 - `#dream-schools-explorer`
 - `.dream-schools-explorer`
 - `[data-dream-schools-explorer]`
+
+### Inline Neighborhood Explorer
+
+Same idea, with the Neighborhood Explorer's own container and script:
+
+```html
+<div id="dn-explorer"></div>
+<script src="https://staging.dreamneighborhood.com/explorer/inline.js" async></script>
+```
 
 ### Popup vs inline — important
 
@@ -56,8 +70,8 @@ you want the explorer rendered in the layout.
    which validates + server-side geocodes and returns `{address, lat, lon}`.
 4. Opens the explorer iframe at `/embed` scoped to that address.
 
-All endpoints live on `https://www.dreamneighborhoodschools.com` and are
-CORS / iframe enabled, so `embed.js` works from any host over https.
+All endpoints live on `https://dream-schools-preview-b6b5fcaf4493.herokuapp.com`
+and are CORS / iframe enabled, so `embed.js` works from any host over https.
 
 ---
 
@@ -105,9 +119,10 @@ override the server-resolved per-host config.
 | `data-lat` / `data-lng` | Hard-code coordinates (skips geocoding) |
 | `data-api-base` | Override the API origin (advanced / testing) |
 
-> **Environments:** the Schools widget has only a **production** origin, so there
-> is no staging/prod switcher. If you ever need to point at a different backend
-> for testing, set `data-api-base` on the script/container.
+> **Environments:** this site points at the **staging** Neighborhood Explorer
+> (`staging.dreamneighborhood.com`) and the **preview** Schools build
+> (`dream-schools-preview-b6b5fcaf4493.herokuapp.com`). If you need to point at a
+> different backend, set `data-api-base` on the script/container.
 
 ---
 
@@ -133,7 +148,7 @@ Do **not** place the snippet inside:
     <div class="col-lg-8">
       <h1>Neighborhood Name</h1>
       <div id="dream-schools-explorer"></div>  <!-- constrained — do not do this -->
-      <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+      <script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async></script>
     </div>
     <div class="col-lg-4">Sidebar</div>
   </div>
@@ -154,7 +169,7 @@ Split the page into three sections: intro, full-width explorer, remaining conten
 <!-- Explorer: full page width -->
 <div class="container-fluid px-0">
   <div id="dream-schools-explorer"></div>
-  <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+  <script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async></script>
 </div>
 
 <!-- Rest of page (normal width) -->
@@ -178,7 +193,7 @@ full-width block below** that row.
 
 <div class="container-fluid px-0">
   <div id="dream-schools-explorer"></div>
-  <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+  <script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async></script>
 </div>
 
 <div class="container pb-5">
@@ -239,9 +254,10 @@ This repo auto-deploys via Netlify:
   `https://deploy-preview-<n>--wdmtaj-realty.netlify.app`
 
 It's a static site — no build step or config is needed; Netlify just publishes
-the files, and `embed.js` loads from production over https on any host. The
-widget renders on any host (unknown hosts get the permissive `enabled: true`
-default), so a Deploy Preview URL is a perfectly good live test host.
+the files, and the explorer scripts load from their hosted origins over https on
+any host. The widget renders on any host (unknown hosts get the permissive
+`enabled: true` default), so a Deploy Preview URL is a perfectly good live test
+host.
 
 If you register a per-host default address in the Schools admin
 (<https://app.dreamneighborhoodschools.com>), register the host you'll actually
