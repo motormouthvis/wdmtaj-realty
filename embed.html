@@ -83,14 +83,32 @@
 
         <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Popup (floating bubble) — site-wide</h3>
         <p>Add this once, anywhere on the page (shared <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>):</p>
-        <pre><code>&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code></pre>
+        <pre><code>&lt;script src="https://staging.dreamneighborhood.com/explorer/sdk.js" async&gt;&lt;/script&gt;</code></pre>
+        <p class="text-muted small">This one tag is the whole popup install. It resolves the site's
+        subscription and shows either the Neighborhood Explorer or the School Rating Explorer &mdash;
+        when the site isn't entitled to the Neighborhood Explorer it loads the Schools widget for you,
+        so there is no second popup snippet to paste. Add it once wherever your site keeps site-wide
+        markup &mdash; the theme header or footer, the shared IDX template, or a tag manager &mdash;
+        and every listing page serves it automatically.</p>
+        <div class="alert alert-info">
+            <strong>On this demo site:</strong> the tag lives in <code>snippets/explorer-tag.html</code>
+            and nowhere else. These pages are hand-written HTML with no shared template, so a Netlify
+            build step injects it into every published page &mdash; the same result a theme header
+            gives you. The Schools and Neighborhood pages are skipped because they host their own
+            inline embed.
+        </div>
 
-        <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Inline (mounts into the page)</h3>
+        <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Inline School Rating Explorer</h3>
         <p>Add a container <strong>before</strong> the script:</p>
         <pre><code>&lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
-&lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;</code></pre>
+&lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;</code></pre>
         <p class="text-muted small">The inline container is auto-detected via <code>#dream-schools-explorer</code>,
         <code>.dream-schools-explorer</code>, or <code>[data-dream-schools-explorer]</code>.</p>
+
+        <h3 class="h6 fw-bold text-uppercase text-muted mt-4">Inline Neighborhood Explorer</h3>
+        <p>Same idea, with the Neighborhood Explorer's own container and script:</p>
+        <pre><code>&lt;div id="dn-explorer"&gt;&lt;/div&gt;
+&lt;script src="https://staging.dreamneighborhood.com/explorer/inline.js" async&gt;&lt;/script&gt;</code></pre>
 
         <div class="alert alert-warning mt-4">
             <strong>Popup vs inline:</strong> the SDK self-detects. If it finds an inline container
@@ -107,7 +125,7 @@
             <li>Posts <code>{page_url, page_title, page_address}</code> to <code>POST /api/embed/scrape</code> (validate + server-side geocode → <code>{address, lat, lon}</code>).</li>
             <li>Opens the explorer iframe at <code>/embed</code> scoped to that address.</li>
         </ol>
-        <p class="text-muted small">All endpoints are on <code>https://www.dreamneighborhoodschools.com</code> (CORS / iframe enabled), so the widget works from any host over https.</p>
+        <p class="text-muted small">All endpoints are on <code>https://dream-schools-preview-b6b5fcaf4493.herokuapp.com</code> (CORS / iframe enabled), so the widget works from any host over https.</p>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Address scraping order</h2>
         <ol>
@@ -147,9 +165,9 @@
                 </tbody>
             </table>
         </div>
-        <p class="text-muted small">The Schools widget has only a <strong>production</strong> origin —
-        there is no staging/prod switcher. To point at a different backend for testing, set
-        <code>data-api-base</code>.</p>
+        <p class="text-muted small">This site points at the <strong>staging</strong> Neighborhood
+        Explorer and the <strong>preview</strong> Schools build. To point at a different backend for
+        testing, set <code>data-api-base</code>.</p>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Inline layout — most important rule</h2>
         <div class="alert alert-warning">
@@ -163,7 +181,7 @@
     &lt;div class="col-lg-8"&gt;
       &lt;h1&gt;Neighborhood Name&lt;/h1&gt;
       &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;  &lt;!-- constrained — do not do this --&gt;
-      &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
+      &lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;
     &lt;/div&gt;
     &lt;div class="col-lg-4"&gt;Sidebar&lt;/div&gt;
   &lt;/div&gt;
@@ -177,7 +195,7 @@
 
 &lt;div class="container-fluid px-0"&gt;
   &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
-  &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
+  &lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;
 &lt;/div&gt;
 
 &lt;div class="container pb-5"&gt;
@@ -195,7 +213,7 @@
 
 &lt;div class="container-fluid px-0"&gt;
   &lt;div id="dream-schools-explorer"&gt;&lt;/div&gt;
-  &lt;script src="https://www.dreamneighborhoodschools.com/embed.js" async&gt;&lt;/script&gt;
+  &lt;script src="https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js" async&gt;&lt;/script&gt;
 &lt;/div&gt;</code></pre>
 
         <h2 class="h4 fw-bold mt-5 mb-3">Optional CSS</h2>
@@ -223,10 +241,9 @@
 
         <h2 class="h4 fw-bold mt-5 mb-3">Working examples on this site</h2>
         <ul>
-            <li><a href="schools.html">Schools</a> — tall full-page explorer using the host default address</li>
-            <li><a href="neighborhoods/areas-georgetown.html">Areas: Georgetown</a> — inline, single-column layout</li>
-            <li><a href="neighborhoods/agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a> — inline, sidebar layout</li>
-            <li><a href="neighborhoods/community-15.html">Community #15</a> — inline, map + sidebar layout</li>
+            <li><a href="schools.html">Schools</a> — inline School Rating Explorer, tall full-page layout</li>
+            <li><a href="neighborhood.html">Neighborhood</a> — inline Neighborhood Explorer, tall full-page layout</li>
+            <li>Every other page — the one-line popup tag only</li>
             <li><a href="neighborhoods/test-index.html">Test index</a> — isolated scraping-path pages + real-world matrix</li>
         </ul>
 
@@ -251,7 +268,5 @@
     </div>
 
     <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://app.dreamneighborhood.com/explorer/sdk.js" async></script>
-    <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 </body>
 </html>
