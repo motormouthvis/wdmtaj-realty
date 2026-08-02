@@ -1,0 +1,5 @@
+# The Explorer tag lives in exactly one place: snippets/explorer-tag.html.
+# This build step serves it on every page, the way a site template would.
+[build]
+  command = "node tools/inject-explorer-tag.mjs"
+  publish = "."
