@@ -35,6 +35,10 @@ async function htmlPages(dir) {
 }
 
 const tag = (await readFile(SNIPPET_FILE, 'utf8')).trim();
+if (!tag) {
+  throw new Error('snippets/explorer-tag.html is empty — nothing to serve on the site.');
+}
+
 const pages = (await htmlPages(ROOT)).sort();
 
 let injected = 0;

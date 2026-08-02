@@ -25,6 +25,18 @@ and shows either the **Neighborhood Explorer** or the **School Rating
 Explorer** — when the site isn't entitled to the Neighborhood Explorer, the SDK
 loads the Schools widget itself, so there is no second popup snippet to paste.
 
+You add it once, in whatever place your site uses for site-wide markup — the
+theme header or footer in WordPress, the shared layout in an MLS or IDX
+template, or a tag manager. Every listing page then serves it automatically.
+
+> **On this demo site:** the tag lives in
+> [`snippets/explorer-tag.html`](snippets/explorer-tag.html) and nowhere else.
+> These are hand-written HTML files with no shared template, so a Netlify build
+> step (`tools/inject-explorer-tag.mjs`) drops it into every published page
+> before the closing `</body>` — the same result a theme header gives you. The
+> Schools and Neighborhood pages are skipped because they host their own inline
+> embed.
+
 ### Inline School Rating Explorer
 
 Add a container **before** the script. The explorer renders directly in that
