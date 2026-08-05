@@ -247,8 +247,8 @@ After the HTML structure is correct, this helps the iframe fill the section:
 
 Working inline embed examples on this demo site:
 
-- [Schools](schools.html) — inline School Rating Explorer, tall full-page layout
-- [Neighborhood](neighborhood.html) — inline Neighborhood Explorer, tall full-page layout
+- [Schools](schools.html) — inline School Rating Explorer (content-sized)
+- [Neighborhood](neighborhood.html) — inline Neighborhood Explorer (content-sized)
 
 Every other page on the site carries the one-line popup tag and nothing else.
 
