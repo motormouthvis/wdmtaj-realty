@@ -983,9 +983,11 @@ a.page-link {
     display: block;
 }
 
-/* Dedicated Schools nav page — taller viewport so customers can scan the full list */
+/* Dedicated Schools / Neighborhood nav pages — let the embed size to content.
+   Do not force a tall fixed height: the full-variant school grid is much shorter
+   than the old classic list, and a locked height leaves empty whitespace below. */
 .schools-page-explorer {
-    min-height: calc(100vh - 110px);
+    min-height: 0;
 }
 
 /* Schools tab only — slightly inset from page edges (~12% narrower) */
@@ -999,9 +1001,9 @@ a.page-link {
 .schools-page-explorer #dream-schools-explorer,
 .schools-page-explorer #dn-explorer,
 .schools-page-explorer iframe {
-    min-height: max(1700px, calc(100vh - 110px));
-    height: max(1700px, calc(100vh - 110px));
     width: 100%;
     max-width: 100%;
     display: block;
+    /* Match embed.js default until the iframe reports content height */
+    min-height: 540px;
 }
