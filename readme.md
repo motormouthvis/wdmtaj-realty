@@ -1,9 +1,10 @@
-# Wdmtaj Realty — production-test host
+# DN Production Test — production-test host
 
-Fake realtor site used to show what customers see on **production** Neighborhood (v259 / detector v6).
+Fake / test realtor site used to show what customers see on **production** Neighborhood (v259 / detector v6).
 
-- **Write links as:** https://dn-productiontest.netlify.app
-- **Current Netlify hostname:** https://wdmtaj-realty.netlify.app — rename to `dn-productiontest` is blocked on William’s Netlify login; same site, new name when that lands
+- **Public site name:** DN Production Test (nav, titles, footer, meta, alt text)
+- **Public email:** bill@millermailbox.com
+- **Live Netlify hostname:** https://dn-productiontest.netlify.app
 - **GitHub repo:** [motormouthvis/wdmtaj-realty](https://github.com/motormouthvis/wdmtaj-realty) (repo name stays `wdmtaj-realty`)
 - **Snippet host:** `https://app.dreamneighborhood.com` (`sdk.js` + `inline.js`) — never `staging.dreamneighborhood.com`
 
