@@ -1,5 +1,8 @@
-# The Explorer tag lives in exactly one place: snippets/explorer-tag.html.
-# This build step serves it on every page, the way a site template would.
+# Popup + Neighborhood tags are production only:
+# https://app.dreamneighborhood.com/explorer/sdk.js
+# https://app.dreamneighborhood.com/explorer/inline.js
+# Dedicated schools embed (if present) is www.dreamneighborhoodschools.com/embed.js.
+# Build flips leftover staging / Heroku preview hosts, then fails if any remain.
 [build]
   command = "node tools/inject-explorer-tag.mjs"
   publish = "."

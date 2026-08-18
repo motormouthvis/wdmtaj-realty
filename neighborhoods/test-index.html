@@ -40,72 +40,10 @@
                             <li><a class="dropdown-item" href="../search.html">Search Properties</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navNb" role="button" data-bs-toggle="dropdown" aria-expanded="false">Neighborhoods</a>
-                        <ul class="dropdown-menu" aria-labelledby="navNb" style="max-height: 70vh; overflow-y: auto;">
-
-                            <li><a class="dropdown-item fw-semibold" href="test-index.html">Test pages index</a></li>
-
-                            <li><a class="dropdown-item" href="agent-jane-doe-detroit.html">Agent: Jane Doe (Detroit)</a></li>
-
-                            <li><a class="dropdown-item" href="areas-georgetown.html">Areas: Georgetown</a></li>
-
-                            <li><a class="dropdown-item" href="brookline-village.html">Brookline Village</a></li>
-
-                            <li><a class="dropdown-item" href="canyon-creek-hoa.html">Canyon Creek HOA</a></li>
-
-                            <li><a class="dropdown-item" href="cary-nc-55plus.html">Cary, NC 55+</a></li>
-
-                            <li><a class="dropdown-item" href="cb-clayton-mo-st-louis.html">CB: Clayton, MO</a></li>
-
-                            <li><a class="dropdown-item" href="coming-soon-build.html">Coming Soon Build</a></li>
-
-                            <li><a class="dropdown-item" href="community-15.html">Community #15</a></li>
-
-                            <li><a class="dropdown-item" href="community-id-8421.html">Community ID 8421</a></li>
-
-                            <li><a class="dropdown-item" href="find-homes.html">Find Homes</a></li>
-
-                            <li><a class="dropdown-item" href="homes-in-sacramento-ca.html">Homes in Sacramento, CA</a></li>
-
-                            <li><a class="dropdown-item" href="lake-bluff-il-condos.html">Lake Bluff, IL Condos</a></li>
-
-                            <li><a class="dropdown-item" href="local-market-arizona-tucson-foothills.html">Realtor: Tucson Foothills</a></li>
-
-                            <li><a class="dropdown-item" href="luxury-homes-for-sale-naples-fl-port-royal.html">Toll: Port Royal, Naples</a></li>
-
-                            <li><a class="dropdown-item" href="melbourne-fl.html">Melbourne, FL</a></li>
-
-                            <li><a class="dropdown-item" href="n-tx-houston-the-heights.html">Trulia: The Heights, Houston</a></li>
-
-                            <li><a class="dropdown-item" href="neighborhood-9942-co-denver-platt-park.html">Redfin: Platt Park, Denver</a></li>
-
-                            <li><a class="dropdown-item" href="neighborhood-guides-nyc-tribeca.html">Compass: Tribeca, NYC</a></li>
-
-                            <li><a class="dropdown-item" href="new-homes-az-phoenix-norterra.html">Lennar: Norterra, Phoenix</a></li>
-
-                            <li><a class="dropdown-item" href="nh-32.html">NH-32</a></li>
-
-                            <li><a class="dropdown-item" href="our-favorite-neighborhoods.html">Our Favorite Neighborhoods</a></li>
-
-                            <li><a class="dropdown-item" href="places-to-live-n-coral-gables-village-fl.html">Niche: Coral Gables Village</a></li>
-
-                            <li><a class="dropdown-item" href="scottsdale-az-85255.html">Scottsdale, AZ 85255</a></li>
-
-                            <li><a class="dropdown-item" href="south-hutchinson-island-fl.html">South Hutchinson Island, FL</a></li>
-
-                            <li><a class="dropdown-item" href="st-lucie-village-fl.html">St. Lucie Village, FL</a></li>
-
-                            <li><a class="dropdown-item" href="the-quarter.html">The Quarter</a></li>
-
-                            <li><a class="dropdown-item" href="the-village-at-bishops-gate.html">The Village at Bishop's Gate</a></li>
-
-                            <li><a class="dropdown-item" href="walk-score-91-arts-district-la.html">Walk Score 91: Arts District</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../schools.html">Schools</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../neighborhood.html">Neighborhood</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="../neighborhoods.html">Neighborhood (T)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../neighborhoods-full.html">Neighborhood (F)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../schools.html">Schools (T)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../schools-minimalist.html">Schools (M)</a></li>
                 </ul>
                 <div class="nav-contact d-flex flex-wrap align-items-center gap-3 ms-lg-auto mt-3 mt-lg-0">
                     <div class="contact-item">
@@ -128,18 +66,71 @@
     </nav>
 
     <div class="container pt-5">
-        <h1 class="display-5 fw-bold mb-3">Dream Neighborhood Schools &mdash; Address-Detection Test Suite</h1>
-        <p class="lead">Test pages for the <strong>School Rating Explorer</strong> embeddable widget
-        (<code>https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js</code>) and its address-scraping feature.</p>
-        <p>This page itself uses the <strong>popup</strong> embed &mdash; look for the floating
-        explorer button in the lower corner. It comes from the shared Dream Neighborhood tag, which
-        serves the School Rating Explorer or the Neighborhood Explorer depending on the site's
-        subscription. The pages below exercise the widget's scraping logic across realistic and
-        adversarial address layouts.</p>
-        <p class="small text-muted mb-0">Every page in this suite carries that one tag and nothing
-        else. The inline embeds live only on the <a href="../schools.html">Schools</a> and
-        <a href="../neighborhood.html">Neighborhood</a> pages &mdash; see the
-        <a href="../embed.html">Embed Guide</a>.</p>
+        <h1 class="display-5 fw-bold mb-3">Address-detection test suite</h1>
+        <p class="lead">Production popup on this host comes from
+        <code>https://app.dreamneighborhood.com/explorer/sdk.js</code>.</p>
+        <p>This page uses the <strong>popup</strong> only. Embedded School Explorer and Neighborhood
+        Explorer are featured on
+        <a href="../schools.html">Schools (T)</a>,
+        <a href="../schools-minimalist.html">Schools (M)</a>,
+        <a href="../neighborhoods.html">Neighborhood (T)</a>, and
+        <a href="../neighborhoods-full.html">Neighborhood (F)</a>
+        the same way as the bills-fp-realty-co format.</p>
+    </div>
+
+    <div class="container pt-5">
+        <h2 class="h3 fw-bold mb-2">Production-test pages added for this host</h2>
+        <p>Clearly fake/test. Built to flex street-in-URL, no-street-in-URL, listing vs area, and title-only place names.</p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Page</th>
+                        <th>Kind</th>
+                        <th>What it flexes</th>
+                        <th>Expected</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="../properties/3335-cunningham-rd-le-grand-ca-95333.html">/properties/3335-cunningham-rd-le-grand-ca-95333.html</a></td>
+                        <td>Listing</td>
+                        <td>Street in URL. Doherty-style: real MLS house, street file incomplete. Marked TEST.</td>
+                        <td>3335 Cunningham Rd, Le Grand, CA 95333</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../properties/test-listing-8841.html">/properties/test-listing-8841.html</a></td>
+                        <td>Listing</td>
+                        <td>No street in the URL. Address in title/heading only.</td>
+                        <td>448 N Detroit St, Los Angeles, CA 90036</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../properties/214-oak-st-austin-tx-78702.html">/properties/214-oak-st-austin-tx-78702.html</a></td>
+                        <td>Listing</td>
+                        <td>Street in the URL. Fake/test listing.</td>
+                        <td>214 Oak St, Austin, TX 78702</td>
+                    </tr>
+                    <tr>
+                        <td><a href="hollywood-hills.html">/neighborhoods/hollywood-hills.html</a></td>
+                        <td>Area</td>
+                        <td>Hollywood Hills-style area page. Title-only place name. No street in URL.</td>
+                        <td>Hollywood Hills (area)</td>
+                    </tr>
+                    <tr>
+                        <td><a href="echo-park.html">/neighborhoods/echo-park.html</a></td>
+                        <td>Area</td>
+                        <td>Title-only place name. Neighborhood / area page. No street in URL.</td>
+                        <td>Echo Park (area)</td>
+                    </tr>
+                    <tr>
+                        <td><a href="8800-sunset-blvd-west-hollywood-ca.html">/neighborhoods/8800-sunset-blvd-west-hollywood-ca.html</a></td>
+                        <td>Area</td>
+                        <td>Neighborhood / area page with a street in the URL.</td>
+                        <td>8800 Sunset Blvd, West Hollywood, CA</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="container pt-5">
@@ -531,5 +522,6 @@
     </div>
 
     <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://app.dreamneighborhood.com/explorer/sdk.js"></script>
 </body>
 </html>

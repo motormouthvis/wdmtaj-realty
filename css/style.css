@@ -983,25 +983,4 @@ a.page-link {
     display: block;
 }
 
-/* Dedicated Schools nav page — taller viewport so customers can scan the full list */
-.schools-page-explorer {
-    min-height: calc(100vh - 110px);
-}
-
-/* Schools tab only — slightly inset from page edges (~12% narrower) */
-.schools-page-explorer:not(.neighborhood-page-explorer) {
-    width: 88%;
-    max-width: 88%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.schools-page-explorer #dream-schools-explorer,
-.schools-page-explorer #dn-explorer,
-.schools-page-explorer iframe {
-    min-height: max(1700px, calc(100vh - 110px));
-    height: max(1700px, calc(100vh - 110px));
-    width: 100%;
-    max-width: 100%;
-    display: block;
-}
+/* Inline explorers stay in a normal container, matching bills-fp-realty-co. */
