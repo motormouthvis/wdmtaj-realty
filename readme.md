@@ -1,38 +1,48 @@
-# eStateX
+# Wdmtaj Realty — production-test host
 
-estatex is a free Bootstrap template for real estate company. This template uses Bootstrap 5 along with a variety of powerful jQuery plugins and tools that add interactive features to the design.
+Fake realtor site used to show what customers see on **production** Neighborhood (v259 / detector v6).
 
+- **Live URL:** https://dn-productiontest.netlify.app
+- **GitHub repo:** [motormouthvis/wdmtaj-realty](https://github.com/motormouthvis/wdmtaj-realty) (repo name stays `wdmtaj-realty`)
+- **Snippet host:** `https://app.dreamneighborhood.com` — never staging
 
-## Template Demo
-[Live Demo](https://ahmedelsewailky.github.io/estateX/)
+## Featured embeds
 
-![This is an alt text.](https://raw.githubusercontent.com/ahmedelsewailky/estateX/master/screenshot.png)
+Same format as [bills-fp-realty-co](https://github.com/motormouthvis/bills-fp-realty-co) / https://bills-fp-realty-co.netlify.app
 
-## Scripts Included: 
-* Bootstrap
-* jQuery
-* Owl Carousel
-* Slick Slider
-* LightCase
-* jQuery UI
-* Nice Select
-* CounterUp
-* Boxicons
+| Page | What it features |
+| --- | --- |
+| `/neighborhoods.html` | Embedded Neighborhood Explorer (tabbed) + popup |
+| `/neighborhoods-full.html` | Embedded Neighborhood Explorer (full) + popup |
+| `/schools.html` | Embedded School Explorer (default) + popup |
+| `/schools-minimalist.html` | Embedded School Explorer (minimalist) + popup |
 
+Popup on every page:
 
-## Featured
-* Modern and Unique Design
-* 100% Responsive
-* W3Validator
-* Clean Code
-* Easy To Customize
-* SEO Friendly
- 
+```html
+<script src="https://app.dreamneighborhood.com/explorer/sdk.js"></script>
+```
 
-## Other templates and useful resources
-* [Olivia](https://github.com/ahmedelsewailky/Olivia) - Free bootstrap template for multi porpuse of uses newspaper, magazine or blog.
+Embedded Neighborhood Explorer:
 
-## License information
-eStateX is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software. But you always need to state that Colorlib is the original author of this template.
+```html
+<div id="dn-explorer"></div>
+<script src="https://app.dreamneighborhood.com/explorer/inline.js" async></script>
+```
 
-Project is designed with ❤️ by [Ahmed Elsewailky](https://facebook.com/ahmedelsewailky) @ 2024
+Embedded School Explorer:
+
+```html
+<div id="dream-schools-explorer"></div>
+<script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
+```
+
+Nothing else is featured (no other product widgets).
+
+## Address-detection test pages
+
+All marked TEST / fake. See [neighborhoods/test-index.html](neighborhoods/test-index.html) and [DECISION.md](DECISION.md).
+
+## Template
+
+Built on the eStateX Bootstrap real-estate template (MIT).

@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 /**
- * Injects the Dream Neighborhood Explorer tag into every published page.
+ * Injects the production Dream Neighborhood popup tag into every published page.
  *
- * The realtor-facing install is one snippet in one place: snippets/explorer-tag.html.
- * Netlify runs this at deploy time so every page is served with the tag, the same way
- * a WordPress theme header or an MLS template serves it on a real site. The page
- * sources in this repo deliberately do not contain the tag.
- *
- * Pages that host an explorer embed of their own are skipped so the popup never
- * competes with an embedded explorer.
+ * The realtor-facing install is one snippet: snippets/explorer-tag.html
+ * (https://app.dreamneighborhood.com/explorer/sdk.js).
+ * Pages that already include the tag are left unchanged.
  */
 
 import { readFile, writeFile, readdir } from 'node:fs/promises';
@@ -19,7 +15,6 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SNIPPET_FILE = join(ROOT, 'snippets', 'explorer-tag.html');
 
 const SKIP_DIRS = new Set(['.git', 'libs', 'node_modules', 'snippets', 'tools']);
-const EMBED_PAGES = new Set(['schools.html', 'neighborhood.html']);
 
 async function htmlPages(dir) {
   const pages = [];
@@ -42,18 +37,12 @@ if (!tag) {
 const pages = (await htmlPages(ROOT)).sort();
 
 let injected = 0;
-let skipped = 0;
+let already = 0;
 
 for (const page of pages) {
-  const name = relative(ROOT, page).split(sep).pop();
-  if (EMBED_PAGES.has(name)) {
-    skipped++;
-    continue;
-  }
-
   const html = await readFile(page, 'utf8');
-  if (html.includes(tag)) {
-    injected++;
+  if (html.includes('app.dreamneighborhood.com/explorer/sdk.js')) {
+    already++;
     continue;
   }
 
@@ -68,5 +57,5 @@ for (const page of pages) {
 }
 
 console.log(
-  `Explorer tag injected into ${injected} page(s); skipped ${skipped} page(s) that host their own embed.`
+  `Explorer tag injected into ${injected} page(s); ${already} page(s) already had the production popup.`
 );

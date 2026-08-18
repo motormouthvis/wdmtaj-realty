@@ -1,5 +1,6 @@
-# The Explorer tag lives in exactly one place: snippets/explorer-tag.html.
-# This build step serves it on every page, the way a site template would.
+# Popup tag is production: snippets/explorer-tag.html
+# (https://app.dreamneighborhood.com/explorer/sdk.js).
+# Pages already carrying the tag are left unchanged.
 [build]
   command = "node tools/inject-explorer-tag.mjs"
   publish = "."
