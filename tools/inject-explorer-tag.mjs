@@ -5,6 +5,9 @@
  * The realtor-facing install is one snippet: snippets/explorer-tag.html
  * (https://app.dreamneighborhood.com/explorer/sdk.js).
  * Pages that already include the tag are left unchanged.
+ *
+ * Also flips leftover staging / Heroku preview hosts to production, then fails
+ * the build if any forbidden snippet host remains.
  */
 
 import { readFile, writeFile, readdir } from 'node:fs/promises';
@@ -15,6 +18,17 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SNIPPET_FILE = join(ROOT, 'snippets', 'explorer-tag.html');
 
 const SKIP_DIRS = new Set(['.git', 'libs', 'node_modules', 'snippets', 'tools']);
+
+const HOST_FLIPS = [
+  ['https://staging.dreamneighborhood.com/explorer/sdk.js', 'https://app.dreamneighborhood.com/explorer/sdk.js'],
+  ['https://staging.dreamneighborhood.com/explorer/inline.js', 'https://app.dreamneighborhood.com/explorer/inline.js'],
+  ['https://dream-schools-preview-b6b5fcaf4493.herokuapp.com/embed.js', 'https://www.dreamneighborhoodschools.com/embed.js'],
+];
+
+const FORBIDDEN_HOST_SNIPPETS = [
+  'staging.dreamneighborhood.com',
+  'herokuapp.com/embed',
+];
 
 async function htmlPages(dir) {
   const pages = [];
@@ -38,9 +52,22 @@ const pages = (await htmlPages(ROOT)).sort();
 
 let injected = 0;
 let already = 0;
+let flipped = 0;
 
 for (const page of pages) {
-  const html = await readFile(page, 'utf8');
+  let html = await readFile(page, 'utf8');
+  let next = html;
+  for (const [from, to] of HOST_FLIPS) {
+    if (next.includes(from)) {
+      next = next.split(from).join(to);
+    }
+  }
+  if (next !== html) {
+    await writeFile(page, next);
+    html = next;
+    flipped++;
+  }
+
   if (html.includes('app.dreamneighborhood.com/explorer/sdk.js')) {
     already++;
     continue;
@@ -56,6 +83,21 @@ for (const page of pages) {
   injected++;
 }
 
+const leftover = [];
+for (const page of pages) {
+  const html = await readFile(page, 'utf8');
+  for (const bad of FORBIDDEN_HOST_SNIPPETS) {
+    if (html.includes(bad)) {
+      leftover.push(`${relative(ROOT, page)} still points at ${bad}`);
+    }
+  }
+}
+if (leftover.length) {
+  throw new Error(
+    `Production-test site must not ship staging or Heroku preview snippet hosts:\n- ${leftover.join('\n- ')}`
+  );
+}
+
 console.log(
-  `Explorer tag injected into ${injected} page(s); ${already} page(s) already had the production popup.`
+  `Explorer tag injected into ${injected} page(s); ${already} page(s) already had the production popup; flipped ${flipped} leftover staging/preview host(s).`
 );

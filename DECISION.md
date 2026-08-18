@@ -13,17 +13,20 @@ Inspected the bills-fp-realty-co repo and live site, then copied:
 - How embeds are featured: those four pages load an inline explorer **and** the popup SDK; every other page loads the popup only
 - Listing and area page chrome (card grid, listing two-column layout, area hero + sidebar)
 
-The GitHub repo name stays `wdmtaj-realty`. Hardcoded Netlify URLs use `dn-productiontest.netlify.app`.
+The GitHub repo name stays `wdmtaj-realty`. Write site links as `https://dn-productiontest.netlify.app`. The current Netlify hostname is still `https://wdmtaj-realty.netlify.app` until William can rename it.
 
 ## Snippet host
 
-Production only:
+Production only. Neighborhood Explorer / School Explorer tags:
 
 - Popup: `https://app.dreamneighborhood.com/explorer/sdk.js`
 - Embedded Neighborhood Explorer: `https://app.dreamneighborhood.com/explorer/inline.js`
-- Embedded School Explorer: `https://www.dreamneighborhoodschools.com/embed.js`
 
-No `staging.dreamneighborhood.com` and no preview Schools Heroku host.
+Dedicated School Explorer embed, if included, uses the production schools host:
+
+- `https://www.dreamneighborhoodschools.com/embed.js`
+
+No `staging.dreamneighborhood.com` and no preview Schools Heroku host (`dream-schools-preview-*.herokuapp.com`).
 
 ## Test-page intent
 
