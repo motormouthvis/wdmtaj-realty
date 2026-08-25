@@ -21,7 +21,7 @@ Do not use `staging.dreamneighborhood.com`. Do not use the Heroku Schools previe
 ### Embedded Neighborhood Explorer
 
 ```html
-<div id="dn-explorer"></div>
+<div id="dn-explorer" data-min-height="900"></div>
 <script src="https://app.dreamneighborhood.com/explorer/inline.js" async></script>
 ```
 
@@ -32,7 +32,7 @@ Full variant: add `data-variant="full"` on `#dn-explorer`.
 If a dedicated schools embed is included, use the production schools host:
 
 ```html
-<div id="dream-schools-explorer"></div>
+<div id="dream-schools-explorer" data-min-height="900"></div>
 <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 ```
 
