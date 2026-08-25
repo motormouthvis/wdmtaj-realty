@@ -28,14 +28,14 @@ Popup on every page (Neighborhood Explorer / School Explorer tag):
 Embedded Neighborhood Explorer:
 
 ```html
-<div id="dn-explorer"></div>
+<div id="dn-explorer" data-min-height="900"></div>
 <script src="https://app.dreamneighborhood.com/explorer/inline.js" async></script>
 ```
 
 Embedded School Explorer, when a dedicated embed is included, uses the **production** schools host — not the Heroku preview:
 
 ```html
-<div id="dream-schools-explorer"></div>
+<div id="dream-schools-explorer" data-min-height="900"></div>
 <script src="https://www.dreamneighborhoodschools.com/embed.js" async></script>
 ```
 
